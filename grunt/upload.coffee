@@ -2,6 +2,7 @@ ftp = require 'ftp'
 async = require 'async'
 fs = require 'fs'
 joinPath = require 'path.join'
+moment = require 'moment'
 
 settings = require '../settings'
 
@@ -18,7 +19,8 @@ module.exports = (grunt) ->
         noErrors = true
 
         log = (message) ->
-            console.log "[FTPorter] #{message}"
+            now = moment().format('YYYY-MM-DD HH:mm:ss')
+            console.log "[#{now} FTPorter:#{target}] #{message}"
 
         uploadOne = (client, files) ->
             if !files? || files.length == 0

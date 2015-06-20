@@ -25,6 +25,7 @@
     "grunt-chokidar": "^0.2.0",
     "grunt-contrib-clean": "^0.6.0",
     "lodash": "^3.7.0",
+    "moment": "^2.10.3",
     "path.join": "^1.0.0"
   }
 }
