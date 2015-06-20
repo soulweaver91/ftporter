@@ -1,0 +1,5 @@
+# Ignore the installed dependency packages
+node_modules
+
+# Do not include the used settings file, it will contain the user's credentials
+settings.coffee
