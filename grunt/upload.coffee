@@ -6,11 +6,14 @@ joinPath = require 'path.join'
 settings = require '../settings'
 
 module.exports = (grunt) ->
-    grunt.registerTask 'upload', 'Uploads queued files', ->
+    grunt.registerMultiTask 'upload', 'Uploads queued files', ->
         success = @async()
         client = new ftp()
 
-        files = fs.readdirSync settings.paths.from
+        target = this.target
+        paths = this.data
+
+        files = fs.readdirSync paths.from
 
         noErrors = true
 
@@ -24,8 +27,8 @@ module.exports = (grunt) ->
             else
                 next = files.pop()
 
-                fromPath = joinPath settings.paths.from, next
-                toPath = joinPath settings.paths.to, next
+                fromPath = joinPath paths.from, next
+                toPath = joinPath paths.to, next
 
                 log "Uploading local:#{fromPath} -> remote:#{toPath}..."
 

@@ -11,9 +11,11 @@ module.exports = {
         user: "user"
         password: "pass"
     paths:
-        # Local path to watch for file changes
-        from: 'queue'
-        # Remote path to upload each file to. The same file name will be used; the old file will be overwritten
-        # if it already exists.
-        to: joinPath 'www-root', 'files'
+        # You can create multiple configurations here, just add another item like this queue here.
+        queue:
+            # Local path to watch for file changes
+            from: 'queue'
+            # Remote path to upload each file to. The same file name will be used; the old file will be overwritten
+            # if it already exists.
+            to: joinPath 'www-root', 'files'
 }

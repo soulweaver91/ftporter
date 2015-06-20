@@ -3,6 +3,7 @@ require 'coffee-script/register'
 
 fs = require 'fs'
 joinPath = require 'path.join'
+_ = require 'lodash'
 
 module.exports = (grunt) ->
     if !fs.existsSync 'settings.coffee'
@@ -13,16 +14,25 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-clean'
     grunt.loadNpmTasks 'grunt-chokidar'
 
-    grunt.initConfig {
+
+    configurations =
         chokidar:
             options:
                 events: ['add']
-            queue:
-                files: [joinPath settings.paths.from, '*']
-                tasks: ['upload', 'clean:queue']
-        clean:
-            queue: [joinPath settings.paths.from, '*']
-    }
+        clean: {}
+        upload: {}
+
+    _.each settings.paths, (path, name) ->
+        configurations.chokidar[name] =
+            files: [joinPath path.from, '*']
+            tasks: ["upload:#{name}", "clean:#{name}"]
+
+        configurations.clean[name] = [joinPath path.from, '*']
+        configurations.upload[name] =
+            from: path.from
+            to: path.to
+
+    grunt.initConfig configurations
 
     grunt.loadTasks 'grunt'
 
