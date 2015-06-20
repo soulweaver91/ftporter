@@ -10,7 +10,7 @@ module.exports = (grunt) ->
         success = @async()
         client = new ftp()
 
-        files = fs.readdirSync('queue')
+        files = fs.readdirSync settings.paths.from
 
         noErrors = true
 
